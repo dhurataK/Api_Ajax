@@ -1,0 +1,13 @@
+div{
+  display: inline-block;
+  vertical-align: top;
+}
+#left{
+  width: 1050px;
+}
+#right{
+  padding: 7px;
+  width: 245px;
+  height: 900px;
+  border: 10px solid red;
+}
