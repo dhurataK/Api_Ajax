@@ -1,0 +1,12 @@
+body {
+  background-image: url('bg.jpg');
+  font-family: 'Montserrat', sans-serif;
+}
+form{
+  margin-left: 476px;
+  margin-top: 95px;
+}
+#weather h1, #weather h3{
+  margin: 35px 118px;
+  color: white;
+}

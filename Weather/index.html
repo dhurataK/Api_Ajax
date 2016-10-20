@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="style.css" media="screen" title="no title">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+    <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+    <title>Weather</title>
+    <script>
+    $(document).ready(function() {
+        $('form').submit(function() {
+            var input = $('input').val();
+            var input_nospaces = input.split(" ").join("")// Remove whitespcaes between words
+            var url = 'http://api.openweathermap.org/data/2.5/weather?q='+input_nospaces+'&units=metric&APPID=cea8616936653ab68bc299159c608748'
+            $.get(url, function(res) {
+                var html_str = ""
+                html_str += "<h1>"+res.name+"</h1>"
+                var celsius = res.main.temp
+                html_str += "<h3>Temperature in Celsius: "+celsius+" </h3>"
+                var fahrenheit = celsius*1.8+32
+                html_str += "<h3>Temperature in Fahrenheit: "+fahrenheit.toFixed(2);+" </h3>"
+                $('#weather').html(html_str)
+            }, 'json');
+
+            return false;
+        });
+    });
+    </script>
+  </head>
+  <body>
+    <form action="#" method="post">
+      <input type="text" name="wheather" placeholder="Type city name" class="input-lg" id="inputlg" type="text" id="inputlg">
+      <input type="submit" value="Search Weather" class="btn btn-primary btn-lg">
+    </form>
+    <div id="weather">
+
+    </div>
+
+  </body>
+</html>
