@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/style.css')}}" media="screen" title="no title">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+    <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+    <meta charset="utf-8">
+    <title>AJAX Posts</title>
+    <script type="text/javascript">
+     function get_posts(){
+       $.ajax({
+         method: 'get', // get request
+         url: '/posts', // where we want to get
+         success: function(posts){ // the function we want to run when we get a response
+           $("#all_notes").html(posts)
+         },
+         dataType:'html' // Because I'm using the partials my dataType is html
+       });
+     }
+     function add_note(){
+       $.ajax({
+        method:'POST', // post request
+        data: {post:$("#note_description").val()}, // the data that we want to send to this url
+        url: '/posts/create', //the url we want to go to
+        success: function(data){ // the function we want to run when we get a response
+          $("#all_notes").html(data)
+        },
+        dataType: "html"
+      });
+     }
+      $(document).ready(function(){
+        get_posts()
+        $('form').submit(function(){
+              add_note()
+              return false; // return false not to refresh the page!!!
+            });
+      });
+    </script>
+  </head>
+  <body>
+    <header>
+      <h1>My Posts</h1>
+    </header>
+    <main>
+      <div id="all_notes">
+
+      </div>
+      <h2>Add a note:</h2>
+      <form action="/posts/create" method="post">
+        <textarea name="post" id="note_description" rows="8" cols="40"></textarea>
+        <input type="submit" value="Post it" class="btn btn-primary btn-lg" id="btn_submit">
+      </form>
+    </main>
+
+  </body>
+</html>
