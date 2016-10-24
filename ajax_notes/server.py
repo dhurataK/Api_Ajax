@@ -34,7 +34,7 @@ def destroy(id):
 
 @app.route('/notes/<id>/update', methods=['POST'])
 def update(id):
-    query = "UPDATE notes SET description = :description WHERE id = :id"
+    query = "UPDATE notes SET description = :description,updated_at = NOW() WHERE id = :id"
     data = {
         'description': request.form['description'],
         'id':id
