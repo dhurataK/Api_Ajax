@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>iTunes Search</title>
+      <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
+      <script type="text/javascript">
+      $(document).ready(function() {
+        $('form').submit(function() {
+            // load up any gif you want, this will be shown while user is waiting for response
+            $.post($(this).attr('action'), $(this).serialize(), function(res) {
+                // pay careful attention to the response object
+                console.log('the response object:');
+                var html_string = "";
+                if(res.results.length !== 0) {
+                    html_string = "<video controls src='" + res.results[0].previewUrl + "'></video>";
+                } else {
+                    html_string = "Not Found";
+                }
+                console.log('the html string:');
+                console.log(html_string);
+                $('#results').html(html_string)
+
+            }, 'json');
+            // don't forget, without it the page will refresh
+            return false;
+        });
+    });
+      </script>
+  </head>
+  <body>
+    <h1>Enter Artist's Name:</h1>
+    <form action="/movie" method="post">
+        <label for="user_input">Enter Artist's Name:</label>
+        <input id="user_input" name="user_input" type="search">
+        <input type="submit" value="search">
+    </form>
+    <div id="results"></div>
+  </body>
+</html>
